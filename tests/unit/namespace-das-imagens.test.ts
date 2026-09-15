@@ -241,17 +241,23 @@ describe("o kit aponta para o que o CI realmente publica", () => {
  *
  * Sem ela, o literal volta a se espalhar — e uma âncora que convive com 30
  * cópias não é âncora, é a primeira de 31 afirmações que podem divergir.
- * A allowlist tem quatro entradas e só encolhe:
+ * A allowlist tem cinco entradas e só encolhe:
  *
- *   _common.sh               a FONTE: o literal nasce aqui
- *   docker-compose.prod.yml  YAML não deriva de shell; conferido acima
- *   .env.hostgator.example   template que o operador copia; conferido acima
- *   este arquivo             a âncora, que precisa do literal para ancorar
+ *   _common.sh                  a FONTE: o literal nasce aqui
+ *   docker-compose.prod.yml     YAML não deriva de shell; conferido acima
+ *   docker-compose.easypanel.yml  variante deste fork para deploy via
+ *                                EasyPanel (sem Caddy); mesmo motivo do
+ *                                docker-compose.prod.yml — YAML não deriva
+ *                                de shell, e este arquivo não tem conferência
+ *                                própria acima porque não faz parte do kit
+ *   .env.hostgator.example      template que o operador copia; conferido acima
+ *   este arquivo                a âncora, que precisa do literal para ancorar
  */
 describe("catraca: ninguém mais repete o namespace", () => {
   const PERMITIDO = new Set([
     "hostgator-setup-kit/_common.sh",
     "docker-compose.prod.yml",
+    "docker-compose.easypanel.yml",
     ".env.hostgator.example",
     "tests/unit/namespace-das-imagens.test.ts",
   ]);
